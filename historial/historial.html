@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Historial de Actas</title>
+	<link rel="stylesheet" href="historial.css">
+</head>
+<body>
+	<nav class="navbar">
+		<a href="../index.html">Nueva acta</a>
+		<h1>Historial de actas</h1>
+	</nav>
+
+	<main>
+		<div class="historial-cabecera">
+			<p>Los cambios se guardan automáticamente en este navegador.</p>
+			<button id="btn-exportar">Exportar respaldo</button>
+			<label class="importar">Importar respaldo
+				<input type="file" id="input-importar" accept="application/json">
+			</label>
+		</div>
+
+		<div id="estado-historial" class="estado"></div>
+		<section class="tabla-contenedor">
+			<table>
+				<thead>
+					<tr>
+						<th>Fecha</th>
+						<th>Cliente</th>
+						<th>Identificación</th>
+						<th>Teléfono</th>
+						<th>Última modificación</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody id="tablaHistorial"></tbody>
+			</table>
+		</section>
+	</main>
+
+	<script src="historial.js"></script>
+</body>
+</html>

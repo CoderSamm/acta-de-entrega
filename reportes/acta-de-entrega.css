@@ -1,0 +1,273 @@
+@page {
+    size: letter;
+    margin: 9mm;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 24px;
+    background: #eef2f7;
+    color: #172033;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+}
+
+.acciones-reporte {
+    max-width: 800px;
+    margin: 0 auto 14px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.acciones-reporte button {
+    border: 0;
+    border-radius: 5px;
+    padding: 8px 12px;
+    background: #2457c5;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.contenedor-acta {
+    width: 100%;
+    max-width: 800px;
+    min-height: 0;
+    margin: auto;
+    padding: 22px 25px;
+    background: white;
+    border-top: 7px solid #2457c5;
+    box-shadow: 0 8px 28px rgba(24, 48, 90, .12);
+}
+
+.encabezado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 13px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid #d8e1ef;
+}
+
+.encabezado h1 {
+    margin: 0;
+    color: #173b82;
+    font-size: 20px;
+    letter-spacing: .8px;
+}
+
+.encabezado::after {
+    content: "DOCUMENTO DE ENTREGA";
+    color: #64748b;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .7px;
+}
+
+section {
+    margin: 0 0 10px;
+}
+
+.informacion-general {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px 18px;
+    padding: 9px 10px;
+    background: #f5f8fc;
+    border: 1px solid #dce5f0;
+    border-radius: 4px;
+}
+
+.campo {
+    display: flex;
+    min-width: 0;
+    gap: 5px;
+    margin: 0;
+    line-height: 1.35;
+}
+
+.campo strong {
+    flex: 0 0 auto;
+    color: #34517d;
+    font-size: 9px;
+    text-transform: uppercase;
+}
+
+.campo span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+h2 {
+    margin: 0 0 5px;
+    padding-bottom: 4px;
+    color: #173b82;
+    border-bottom: 2px solid #dce5f0;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+}
+
+table {
+    width: 100%;
+    margin: 0 0 9px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+table th,
+table td {
+    padding: 4px 6px;
+    border: 1px solid #d5deea;
+    text-align: left;
+    overflow-wrap: anywhere;
+    line-height: 1.25;
+}
+
+table th {
+    background: #2457c5;
+    color: white;
+    font-size: 9px;
+    text-transform: uppercase;
+}
+
+table td {
+    min-height: 20px;
+    font-size: 10px;
+}
+
+section > p {
+    margin: -2px 0 5px;
+    color: #64748b;
+    font-size: 9px;
+}
+
+.observaciones {
+    margin-top: 4px;
+}
+
+.caja-observaciones {
+    min-height: 44px;
+    max-height: 58px;
+    overflow: hidden;
+    padding: 7px 9px;
+    border: 1px solid #d5deea;
+    color: #334155;
+    white-space: pre-wrap;
+    line-height: 1.35;
+}
+
+.firmas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 70px;
+    margin-top: 25px;
+    page-break-inside: avoid;
+}
+
+.firma {
+    text-align: center;
+}
+
+.linea {
+    margin-bottom: 5px;
+    border-top: 1px solid #172033;
+}
+
+.firma p {
+    margin: 0;
+    color: #334155;
+    font-size: 10px;
+}
+
+@media (max-width: 650px) {
+    body {
+        padding: 10px;
+    }
+
+    .contenedor-acta {
+        padding: 16px;
+    }
+
+    .informacion-general {
+        grid-template-columns: 1fr;
+    }
+
+    .encabezado::after {
+        display: none;
+    }
+}
+
+@media print {
+    html,
+    body {
+        width: 216mm;
+        height: 279mm;
+    }
+
+    body {
+        padding: 0;
+        background: white;
+        font-size: 9.5px;
+    }
+
+    .acciones-reporte {
+        display: none;
+    }
+
+    .contenedor-acta {
+        max-width: none;
+        padding: 11px 14px;
+        border-top-width: 5px;
+        box-shadow: none;
+    }
+
+    section {
+        margin-bottom: 7px;
+        break-inside: avoid;
+    }
+
+    .encabezado {
+        margin-bottom: 8px;
+        padding-bottom: 6px;
+    }
+
+    .encabezado h1 {
+        font-size: 17px;
+    }
+
+    .informacion-general {
+        gap: 3px 14px;
+        padding: 7px 8px;
+    }
+
+    h2 {
+        margin-bottom: 3px;
+        padding-bottom: 3px;
+        font-size: 10px;
+    }
+
+    table {
+        margin-bottom: 6px;
+    }
+
+    table th,
+    table td {
+        padding: 3px 5px;
+    }
+
+    .caja-observaciones {
+        min-height: 34px;
+        max-height: 42px;
+    }
+
+    .firmas {
+        margin-top: 16px;
+    }
+}

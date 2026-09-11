@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acta de Entrega</title>
+    <link rel="stylesheet" href="acta-de-entrega.css">
+</head>
+<body>
+    <div class="acciones-reporte">
+        <button id="btn-editar-acta">Editar acta</button>
+        <button id="btn-imprimir">Guardar como PDF / imprimir</button>
+    </div>
+
+    <div class="contenedor-acta">
+
+        <header class="encabezado">
+            <h1>ACTA DE ENTREGA</h1>
+        </header>
+
+        <section class="informacion-general">
+            <div class="campo">
+                <strong>Cliente:</strong>
+                <span id="cliente">_______________________</span>
+            </div>
+
+            <div class="campo">
+                <strong>Dirección:</strong>
+                <span id="direccion">_______________________</span>
+            </div>
+
+            <div class="campo">
+                <strong>Ciudad:</strong>
+                <span id="ciudad">_______________________</span>
+            </div>
+
+            <div class="campo">
+                <strong>Fecha:</strong>
+                <span id="fecha"></span>
+            </div>
+            <div class="campo"><strong>Identificación:</strong><span id="identificacion"></span></div>
+            <div class="campo"><strong>Teléfono:</strong><span id="telefono"></span></div>
+            <div class="campo"><strong>Correo:</strong><span id="correo"></span></div>
+            <div class="campo"><strong>NIT facturación:</strong><span id="nit"></span></div>
+            <div class="campo"><strong>Razón social:</strong><span id="razon-social"></span></div>
+            <div class="campo"><strong>Dirección facturación:</strong><span id="direccion-facturacion"></span></div>
+            <div class="campo"><strong>Teléfono facturación:</strong><span id="telefono-facturacion"></span></div>
+            <div class="campo"><strong>Correo facturación:</strong><span id="correo-facturacion"></span></div>
+        </section>
+
+        <section>
+            <h2>Productos Entregados</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tabla-productos-acta">
+                    <!-- Se llena dinámicamente -->
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Seriales de Equipos</h2>
+            <p>En caso de entregar equipos en esta orden</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Serial Condensadora</th>
+                        <th>Serial Evaporadora</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tabla-seriales-acta">
+                    <!-- Se llena dinámicamente -->
+                </tbody>
+            </table>
+        </section>
+
+        <section class="observaciones">
+            <h2>Observaciones</h2>
+            <div id="caja-observaciones" class="caja-observaciones"></div>
+        </section>
+
+        <section class="firmas">
+
+            <div class="firma">
+                <div class="linea"></div>
+                <p>Entrega: <span id="firma-nombre"></span></p>
+            </div>
+
+            <div class="firma">
+                <div class="linea"></div>
+                <p>Recibe: <span id="firma-cedula"></span></p>
+            </div>
+
+        </section>
+
+    </div>
+
+</body>
+<script src="acta-de-entrega.js"></script>
+</html>

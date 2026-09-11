@@ -1,0 +1,319 @@
+:root {
+    --bg: #f5f7fb;
+    --surface: #ffffff;
+    --surface-soft: #eef5ff;
+    --primary: #1f5fff;
+    --primary-deep: #1b46bf;
+    --text: #162033;
+    --text-soft: #5d6b82;
+    --line: #dfeaf6;
+    --shadow: 0 22px 45px rgba(25, 42, 72, 0.08);
+    --radius: 20px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(180deg, #f2f7ff 0%, #f8fafc 30%, #f5f7fb 100%);
+    color: var(--text);
+}
+
+.navbar {
+    background: rgba(62, 110, 221, 0.96);
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+    padding: 0.9rem 1.25rem;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.nav-links {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.nav-links a {
+    color: #edf4ff;
+    text-decoration: none;
+    padding: 0.6rem 0.9rem;
+    border-radius: 999px;
+    font-weight: 600;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.nav-links a:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-1px);
+}
+
+h1 {
+    max-width: 1180px;
+    margin: 2rem auto 1rem;
+    padding: 0 1.25rem;
+    text-align: center;
+    font-size: clamp(2.1rem, 4vw, 3rem);
+    letter-spacing: 0.04em;
+    color: #0f172a;
+}
+
+section {
+    max-width: 1180px;
+    margin: 0 auto 2rem;
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid rgba(223, 234, 246, 0.9);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+    box-shadow: var(--shadow);
+}
+
+.section-header {
+    margin-bottom: 1.1rem;
+}
+
+h2 {
+    margin: 0;
+    font-size: clamp(1.3rem, 2vw, 1.8rem);
+    color: var(--primary-deep);
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+h2::before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), #70a8ff);
+    box-shadow: 0 0 0 5px rgba(31, 95, 255, 0.12);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem 1.2rem;
+    align-items: end;
+}
+
+.compact-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid #dfeaf6;
+  border-radius: 12px;
+  background: #fff;
+  color: #162033;
+  font: inherit;
+}
+
+input,
+textarea {
+    width: 100%;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--text);
+    border-radius: 12px;
+    padding: 0.9rem 1rem;
+    font-size: 0.96rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-soft);
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: rgba(31, 95, 255, 0.55);
+    box-shadow: 0 0 0 4px rgba(31, 95, 255, 0.1);
+}
+
+textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+button {
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary) 0%, #3a7bff 100%);
+    color: white;
+    font-weight: 700;
+    padding: 0.95rem 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 12px 22px rgba(31, 95, 255, 0.18);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 15px 28px rgba(31, 95, 255, 0.25);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+#btn-agregar-venta,
+#btn-agregar-serial {
+    align-self: end;
+    min-height: 50px;
+}
+
+.serial-block {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+}
+
+.serial-block p,
+.section-note {
+    margin: 0 0 1rem;
+    color: var(--text-soft);
+    font-size: 1rem;
+}
+
+.facturacion {
+    margin-top: 1.2rem;
+}
+
+table {
+    width: 100%;
+    margin-top: 1.2rem;
+    border-collapse: collapse;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 8px 16px rgba(15, 23, 42, 0.03);
+}
+
+th,
+td {
+    padding: 0.9rem 0.9rem;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+}
+
+th {
+    background: var(--surface-soft);
+    color: #1a355f;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+tbody
+tr:hover {
+    background: rgba(31, 95, 255, 0.02);
+}
+
+tfoot td {
+    background: #f9fbff;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.signature-grid {
+    margin-top: 1rem;
+}
+
+.acciones-acta {
+    max-width: 1180px;
+    margin: 1.5rem auto 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 0 1.25rem;
+}
+
+.acciones-acta button {
+    min-width: 180px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, #293fdf 100%);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+}
+
+.site-footer {
+    max-width: 1180px;
+    margin: 0 auto 2rem;
+    padding: 1.1rem 1.25rem 0;
+    text-align: center;
+    color: white;
+    font-size: 0.88rem;
+    letter-spacing: 0.02em;
+    border-top: 1px solid rgba(246, 246, 247, 0.9);
+}
+
+.site-footer p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+#firma-nombre,
+#firma-cedula {
+    background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
+}
+
+@media (max-width: 760px) {
+    section {
+        padding: 1rem;
+        border-radius: 18px;
+    }
+
+    .nav-links {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .form-grid,
+    .compact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}

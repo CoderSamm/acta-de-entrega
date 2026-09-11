@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACTAS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="./historial/historial.html">Historial</a>
+        </div>
+
+    <h1>ACTA DE ENTREGA</h1>
+
+    <section class="apertura">
+        <h2>Datos de la Entrega</h2>
+
+        <div class="form-grid">
+            <label for="fecha">Fecha
+                <input type="date" name="fecha" id="fecha">
+            </label>
+        
+            <label for="identificacion">Identificación
+                <input type="text" name="identificacion" id="identificacion" placeholder="Nit o Cédula">
+            </label>
+        
+            <label for="nombre">Nombre
+                <input type="text" name="nombre" id="nombre" placeholder="Razon Social o Nombre">
+            </label>
+        
+            <label for="direccion">Direccion de la Entrega
+                <input type="text" name="direccion" id="direccion" placeholder="Direccion de la entrega">
+            </label>
+        
+            <label for="telefono">Teléfono
+                <input type="tel" name="telefono" id="telefono" placeholder="Número de teléfono">
+            </label>
+        
+            <label for="correo">Correo Electrónico
+                <input type="email" name="correo" id="correo" placeholder="Correo Electronico">
+            </label>
+        
+        </div>
+    </section>
+
+    <section class="facturacion">
+        <div class="section-header">
+            <h2>Datos de Facturación</h2>
+        </div>
+
+        <p class="section-note">En caso de requerir facturación, complete los siguientes campos:</p>
+
+        <div class="form-grid">
+            <label for="nit">NIT
+                <input type="text" name="nit" id="nit" placeholder="Número de Identificación Tributaria">
+            </label>
+
+            <label for="razon-social">Razón Social
+                <input type="text" name="razon-social" id="razon-social" placeholder="Razón Social">
+            </label>
+
+            <label for="direccion-facturacion">Dirección de Facturación
+                <input type="text" name="direccion-facturacion" id="direccion-facturacion"
+                    placeholder="Dirección de Facturación">
+            </label>
+
+            <label for="telefono-facturacion">Teléfono de Facturación
+                <input type="tel" name="telefono-facturacion" id="telefono-facturacion"
+                    placeholder="Número de teléfono de facturación">
+            </label>
+
+            <label for="correo-facturacion">Correo Electrónico de Facturación
+                <input type="email" name="correo-facturacion" id="correo-facturacion"
+                    placeholder="Correo Electrónico de Facturación">
+            </label>
+        </div>
+    </section>
+    
+    <section class="productos">
+        <div class="section-header">
+            <h2>Productos a Entregar</h2>
+        </div>
+
+        <div class="form-grid compact-grid">
+            <input type="text" name="input-item" id="input-item" placeholder="Item">
+            <input type="text" name="input-producto" id="input-producto" placeholder="Producto">
+            <input type="number" name="input-cantidad" id="input-cantidad" placeholder="Cantidad">
+            <button id="btn-agregar">Agregar Producto</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody id="tbody-productos">
+                <!-- cuerpo donde aparecen los productos  -->
+            </tbody>
+            <tfoot>
+                 <tr>
+                    <td colspan="3">Items</td>
+                    <td id="tabla-total-items">0</td>
+                </tr>
+                <tr>
+                    <td colspan="3">Cantidades</td>
+                    <td id="tabla-total-cantidades">0</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="serial-block">
+            <p>En caso de entregar aires acondicionados, indique los seriales a continuación:</p>
+            <div class="form-grid compact-grid">
+                <input type="text" name="serial-condensadora" id= "input-serial-condensadora" placeholder="Serial - condensadoras">
+                <input type="text" name="serial-evaporadora" id= "input-serial-evaporadora" placeholder="Serial - evaporadoras">
+                <button id="btn-agregar-serial">Agregar Serial</button>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Seriales Condensadora</th>
+                    <th>Seriales Evaporadora</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody id="tbody-seriales">
+                <!-- cuerpo donde aparecen los seriales en caso de ser aires acondicionados  -->
+            </tbody>
+
+            <tfoot>
+            </tfoot>
+        </table>
+    </section>
+
+    <section class="cierre-final">
+        <div class="section-header">
+            <h2>Observaciones y Firma</h2>
+        </div>
+
+        <div class="form-grid">
+            <textarea name="observaciones" id="observaciones" placeholder="Observaciones"></textarea>
+        </div>
+
+        <div class="form-grid signature-grid">
+            <input type="text" name="firma-nombre" id="firma-nombre" placeholder="Nombre quien firma">
+            <input type="text" name="firma-cedula" id="firma-cedula" placeholder="Cédula quien firma">
+        </div>
+    </section>
+
+    <div class="acciones-acta">
+        <button id="btn-guardar-acta" class="btn-primary">Guardar Acta</button>
+        <button id="btn-generar-acta" class="btn-secondary">Generar Acta</button>
+        <button id="btn-eliminar-acta" class="btn-danger">Eliminar Acta</button>
+    </div>
+
+    <div id="notificacion-app" aria-live="polite" role="status"></div>
+
+    <footer class="site-footer">
+        <p>Todos los derechos reservados. Hecho por LeumaS</p>
+    </footer>
+
+    
+</body>
+<script src="script.js"></script>
+
+</html>
