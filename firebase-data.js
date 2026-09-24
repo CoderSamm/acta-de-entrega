@@ -4,9 +4,7 @@ import {
     doc,
     getDoc,
     getDocs,
-    query,
-    setDoc,
-    where
+    setDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { auth, db, usuarioListo } from "./firebase-config.js";
 
@@ -18,20 +16,16 @@ async function referenciaUsuario() {
 }
 
 export async function leerHistorialRemoto() {
-    const usuario = await referenciaUsuario();
-    const consulta = query(
-        collection(db, COLECCION_ACTAS),
-        where("ownerId", "==", usuario.uid)
-    );
-    const resultado = await getDocs(consulta);
+    await referenciaUsuario();
+    const resultado = await getDocs(collection(db, COLECCION_ACTAS));
     return resultado.docs.map((registro) => registro.data())
         .sort((a, b) => new Date(b.actualizadoEn) - new Date(a.actualizadoEn));
 }
 
 export async function leerActaRemota(id) {
-    const usuario = await referenciaUsuario();
+    await referenciaUsuario();
     const registro = await getDoc(doc(db, COLECCION_ACTAS, id));
-    if (!registro.exists() || registro.data().ownerId !== usuario.uid) return null;
+    if (!registro.exists()) return null;
     return registro.data();
 }
 
@@ -44,10 +38,10 @@ export async function guardarActaRemota(acta) {
 }
 
 export async function eliminarActaRemota(id) {
-    const usuario = await referenciaUsuario();
+    await referenciaUsuario();
     const referencia = doc(db, COLECCION_ACTAS, id);
     const registro = await getDoc(referencia);
-    if (registro.exists() && registro.data().ownerId === usuario.uid) {
+    if (registro.exists()) {
         await deleteDoc(referencia);
     }
 }

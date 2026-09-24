@@ -9,7 +9,9 @@
 5. Copia la configuración de la aplicación web en `firebase-config.js`, reemplazando todos los valores `REEMPLAZAR_*`.
 6. En **Firestore Database > Reglas**, publica el contenido de `firestore.rules`.
 
-Las reglas relacionan cada acta con el usuario anónimo de su navegador. No dejes las reglas en modo abierto.
+La aplicación usa autenticación anónima solo para evitar acceso completamente no autenticado a Firestore. Todos los navegadores comparten la colección `actas`, por lo que cualquier persona con el enlace puede ver, editar y eliminar el historial.
+
+Si las actas deben ser privadas, hay que cambiar este flujo a cuentas con correo y contraseña o a otro proveedor de autenticación.
 
 ## 2. Publicar las reglas con Firebase CLI (opcional)
 
