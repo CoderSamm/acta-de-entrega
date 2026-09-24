@@ -4,7 +4,7 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebas
 
 // Replace these values with the Firebase Web app configuration.
 const firebaseConfig = {
-    apiKey: "AIzaSyBUjsMKpqRrO1mwybDhxZVhftXT_CpCQCw",
+    apiKey: "AIzaSyBB5N59Yf7jfPox_WrQ3ocfml2s5ITk6ZQ",
     authDomain: "actas-entrega.firebaseapp.com",
     projectId: "actas-entrega",
     storageBucket: "actas-entrega.firebasestorage.app",
