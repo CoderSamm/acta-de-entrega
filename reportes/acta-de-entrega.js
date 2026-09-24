@@ -1,7 +1,7 @@
+import { leerActaRemota } from "../firebase-data.js";
+
 const parametros = new URLSearchParams(window.location.search);
 const idActa = parametros.get("id");
-const historial = JSON.parse(localStorage.getItem("historialActas")) || [];
-const acta = historial.find((registro) => registro.id === idActa);
 const campos = [
     "cliente", "direccion", "fecha", "identificacion", "telefono", "correo", "nit",
     "razon-social", "direccion-facturacion", "telefono-facturacion", "correo-facturacion",
@@ -12,9 +12,13 @@ function mostrar(valor) {
     return valor || "No registrado";
 }
 
-if (!acta) {
-    document.querySelector(".contenedor-acta").innerHTML = "<p>El acta no existe o fue eliminada.</p>";
-} else {
+async function cargarReporte() {
+    const acta = await leerActaRemota(idActa);
+    if (!acta) {
+        document.querySelector(".contenedor-acta").innerHTML = "<p>El acta no existe o fue eliminada.</p>";
+        return;
+    }
+
     document.getElementById("cliente").textContent = mostrar(acta.nombre);
     campos.filter((campo) => campo !== "cliente").forEach((campo) => {
         const elemento = document.getElementById(campo);
@@ -49,3 +53,8 @@ if (!acta) {
     });
     document.getElementById("btn-imprimir").addEventListener("click", () => window.print());
 }
+
+cargarReporte().catch((error) => {
+    console.error(error);
+    document.querySelector(".contenedor-acta").innerHTML = "<p>No se pudo cargar el acta.</p>";
+});

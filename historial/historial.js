@@ -1,14 +1,11 @@
-const HISTORIAL_KEY = "historialActas";
+import {
+	eliminarActaRemota,
+	guardarActaRemota,
+	leerHistorialRemoto
+} from "../firebase-data.js";
+
 const tabla = document.getElementById("tablaHistorial");
 const estado = document.getElementById("estado-historial");
-
-function leerHistorial() {
-	return JSON.parse(localStorage.getItem(HISTORIAL_KEY)) || [];
-}
-
-function guardarHistorial(historial) {
-	localStorage.setItem(HISTORIAL_KEY, JSON.stringify(historial));
-}
 
 function textoSeguro(valor) {
 	return valor || "Sin datos";
@@ -23,8 +20,8 @@ function fechaHoraLegible(valor) {
 	return valor ? new Date(valor).toLocaleString("es-CO") : "Sin cambios";
 }
 
-function renderizarHistorial() {
-	const historial = leerHistorial();
+async function renderizarHistorial() {
+	const historial = await leerHistorialRemoto();
 	tabla.innerHTML = "";
 
 	if (!historial.length) {
@@ -62,10 +59,10 @@ function renderizarHistorial() {
 		const eliminar = document.createElement("button");
 		eliminar.textContent = "Eliminar";
 		eliminar.className = "btn-danger";
-		eliminar.addEventListener("click", () => {
+		eliminar.addEventListener("click", async () => {
 			if (!window.confirm("¿Eliminar esta acta del historial?")) return;
-			guardarHistorial(leerHistorial().filter((registro) => registro.id !== acta.id));
-			renderizarHistorial();
+			await eliminarActaRemota(acta.id);
+			await renderizarHistorial();
 		});
 
 		acciones.append(editar, pdf, eliminar);
@@ -75,12 +72,17 @@ function renderizarHistorial() {
 }
 
 document.getElementById("btn-exportar").addEventListener("click", () => {
-	const archivo = new Blob([JSON.stringify(leerHistorial(), null, 2)], { type: "application/json" });
-	const enlace = document.createElement("a");
-	enlace.href = URL.createObjectURL(archivo);
-	enlace.download = "respaldo-actas.json";
-	enlace.click();
-	URL.revokeObjectURL(enlace.href);
+	leerHistorialRemoto().then((historial) => {
+		const archivo = new Blob([JSON.stringify(historial, null, 2)], { type: "application/json" });
+		const enlace = document.createElement("a");
+		enlace.href = URL.createObjectURL(archivo);
+		enlace.download = "respaldo-actas.json";
+		enlace.click();
+		URL.revokeObjectURL(enlace.href);
+	}).catch((error) => {
+		console.error(error);
+		estado.textContent = "No se pudo exportar el respaldo";
+	});
 });
 
 document.getElementById("input-importar").addEventListener("change", (evento) => {
@@ -91,9 +93,12 @@ document.getElementById("input-importar").addEventListener("change", (evento) =>
 		try {
 			const respaldo = JSON.parse(lector.result);
 			if (!Array.isArray(respaldo)) throw new Error("Formato invalido");
-			guardarHistorial(respaldo);
-			estado.textContent = "Respaldo importado correctamente";
-			renderizarHistorial();
+			Promise.all(respaldo.map(guardarActaRemota)).then(() => {
+				estado.textContent = "Respaldo importado correctamente";
+				return renderizarHistorial();
+			}).catch(() => {
+				estado.textContent = "No se pudo importar el respaldo";
+			});
 		} catch {
 			estado.textContent = "No se pudo importar el respaldo";
 		}
@@ -101,4 +106,7 @@ document.getElementById("input-importar").addEventListener("change", (evento) =>
 	lector.readAsText(archivo);
 });
 
-renderizarHistorial();
+renderizarHistorial().catch((error) => {
+	console.error(error);
+	estado.textContent = "No se pudo cargar el historial";
+});

@@ -1,4 +1,8 @@
-const HISTORIAL_KEY = "historialActas";
+import {
+    eliminarActaRemota,
+    guardarActaRemota,
+    leerActaRemota
+} from "./firebase-data.js";
 
 const inputItem = document.getElementById("input-item");
 const inputProducto = document.getElementById("input-producto");
@@ -19,16 +23,8 @@ const camposActa = [
 const parametros = new URLSearchParams(window.location.search);
 let actaEnEdicion = parametros.get("id");
 
-function leerHistorial() {
-    return JSON.parse(localStorage.getItem(HISTORIAL_KEY)) || [];
-}
-
-function guardarHistorial(historial) {
-    localStorage.setItem(HISTORIAL_KEY, JSON.stringify(historial));
-}
-
 function guardarCambiosAutomaticamente() {
-    if (actaEnEdicion) guardarActa(false);
+    if (actaEnEdicion) guardarActa(false).catch(mostrarError);
 }
 
 function leerTablaProductos() {
@@ -62,19 +58,11 @@ function obtenerDatosActa() {
     };
 }
 
-function guardarActa(mostrarAviso = true) {
+async function guardarActa(mostrarAviso = true) {
     const acta = obtenerDatosActa();
-    const historial = leerHistorial();
-    const indice = historial.findIndex((registro) => registro.id === acta.id);
-
-    if (indice === -1) {
-        historial.unshift(acta);
-    } else {
-        acta.creadoEn = historial[indice].creadoEn || acta.creadoEn;
-        historial[indice] = acta;
-    }
-
-    guardarHistorial(historial);
+    const actaAnterior = await leerActaRemota(acta.id);
+    acta.creadoEn = actaAnterior?.creadoEn || acta.creadoEn;
+    await guardarActaRemota(acta);
     actaEnEdicion = acta.id;
 
     if (mostrarAviso) {
@@ -82,6 +70,11 @@ function guardarActa(mostrarAviso = true) {
     }
 
     return acta;
+}
+
+function mostrarError(error) {
+    console.error(error);
+    mostrarNotificacion("No se pudo sincronizar con Firebase");
 }
 
 function cargarDatosActa(acta) {
@@ -234,12 +227,15 @@ document.getElementById("btn-agregar-serial").addEventListener("click", () => {
     guardarCambiosAutomaticamente();
 });
 
-document.getElementById("btn-guardar-acta").addEventListener("click", () => guardarActa());
-document.getElementById("btn-generar-acta").addEventListener("click", () => {
-    const acta = guardarActa(false);
-    window.open(`./reportes/acta-de-entrega.html?id=${encodeURIComponent(acta.id)}`, "_blank");
+document.getElementById("btn-guardar-acta").addEventListener("click", () => {
+    guardarActa().catch(mostrarError);
 });
-document.getElementById("btn-eliminar-acta").addEventListener("click", () => {
+document.getElementById("btn-generar-acta").addEventListener("click", () => {
+    guardarActa(false)
+        .then((acta) => window.open(`./reportes/acta-de-entrega.html?id=${encodeURIComponent(acta.id)}`, "_blank"))
+        .catch(mostrarError);
+});
+document.getElementById("btn-eliminar-acta").addEventListener("click", async () => {
     if (!actaEnEdicion) {
         document.querySelectorAll("input, textarea").forEach((elemento) => elemento.value = "");
         tbodyProductos.innerHTML = "";
@@ -247,16 +243,26 @@ document.getElementById("btn-eliminar-acta").addEventListener("click", () => {
         actualizarTotales();
         return;
     }
-    guardarHistorial(leerHistorial().filter((acta) => acta.id !== actaEnEdicion));
-    window.location.href = "index.html";
+    try {
+        await eliminarActaRemota(actaEnEdicion);
+        window.location.href = "index.html";
+    } catch (error) {
+        mostrarError(error);
+    }
 });
 
-const registroInicial = actaEnEdicion && leerHistorial().find((acta) => acta.id === actaEnEdicion);
-if (registroInicial) {
-    cargarDatosActa(registroInicial);
-} else {
-    actualizarTotales();
+async function iniciarFormulario() {
+    try {
+        const registroInicial = actaEnEdicion && await leerActaRemota(actaEnEdicion);
+        if (registroInicial) cargarDatosActa(registroInicial);
+        else actualizarTotales();
+    } catch (error) {
+        mostrarError(error);
+        actualizarTotales();
+    }
 }
+
+iniciarFormulario();
 
 let guardadoPendiente;
 camposActa.forEach((campo) => {
