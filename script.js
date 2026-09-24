@@ -3,6 +3,10 @@ import {
     guardarActaRemota,
     leerActaRemota
 } from "./firebase-data.js";
+import { auth, authReady } from "./firebase-config.js";
+
+await authReady;
+if (!auth.currentUser) window.location.replace("login.html");
 
 const inputItem = document.getElementById("input-item");
 const inputProducto = document.getElementById("input-producto");

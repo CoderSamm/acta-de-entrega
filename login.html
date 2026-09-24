@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso a actas</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <main class="login-panel">
+        <h1>Actas de entrega</h1>
+        <p>Inicia sesión para acceder al historial compartido.</p>
+
+        <form id="formulario-acceso">
+            <label for="correo">Correo electrónico</label>
+            <input id="correo" type="email" autocomplete="email" required>
+
+            <label for="password">Contraseña</label>
+            <input id="password" type="password" minlength="6" autocomplete="current-password" required>
+
+            <button type="submit">Iniciar sesión</button>
+            <button type="button" id="btn-registrar" class="secundario">Crear cuenta</button>
+        </form>
+
+        <p id="mensaje-acceso" role="status"></p>
+    </main>
+    <script type="module" src="login.js"></script>
+</body>
+</html>

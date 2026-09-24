@@ -3,6 +3,10 @@ import {
 	guardarActaRemota,
 	leerHistorialRemoto
 } from "../firebase-data.js";
+import { auth, authReady } from "../firebase-config.js";
+
+await authReady;
+if (!auth.currentUser) window.location.replace("../login.html");
 
 const tabla = document.getElementById("tablaHistorial");
 const estado = document.getElementById("estado-historial");

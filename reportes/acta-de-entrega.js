@@ -1,4 +1,8 @@
 import { leerActaRemota } from "../firebase-data.js";
+import { auth, authReady } from "../firebase-config.js";
+
+await authReady;
+if (!auth.currentUser) window.location.replace("../login.html");
 
 const parametros = new URLSearchParams(window.location.search);
 const idActa = parametros.get("id");

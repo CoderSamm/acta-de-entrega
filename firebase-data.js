@@ -6,13 +6,12 @@ import {
     getDocs,
     setDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { auth, db, usuarioListo } from "./firebase-config.js";
+import { db, usuarioListo } from "./firebase-config.js";
 
 const COLECCION_ACTAS = "actas";
 
 async function referenciaUsuario() {
-    await usuarioListo;
-    return auth.currentUser;
+    return usuarioListo();
 }
 
 export async function leerHistorialRemoto() {

@@ -3,15 +3,13 @@
 ## 1. Crear el proyecto de Firebase
 
 1. Entra a [Firebase Console](https://console.firebase.google.com/) y crea un proyecto.
-2. En **Authentication > Sign-in method**, activa **Anonymous**.
+2. En **Authentication > Sign-in method**, activa **Email/Password**.
 3. En **Firestore Database**, crea la base de datos en modo producción.
 4. En **Configuración del proyecto > Tus aplicaciones**, registra una aplicación web.
 5. Copia la configuración de la aplicación web en `firebase-config.js`, reemplazando todos los valores `REEMPLAZAR_*`.
 6. En **Firestore Database > Reglas**, publica el contenido de `firestore.rules`.
 
-La aplicación usa autenticación anónima solo para evitar acceso completamente no autenticado a Firestore. Todos los navegadores comparten la colección `actas`, por lo que cualquier persona con el enlace puede ver, editar y eliminar el historial.
-
-Si las actas deben ser privadas, hay que cambiar este flujo a cuentas con correo y contraseña o a otro proveedor de autenticación.
+La aplicación exige una cuenta de correo y contraseña. Todos los usuarios autenticados comparten la colección `actas`, por lo que pueden ver, editar y eliminar el historial.
 
 ## 2. Publicar las reglas con Firebase CLI (opcional)
 
