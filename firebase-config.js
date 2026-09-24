@@ -4,12 +4,12 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebas
 
 // Replace these values with the Firebase Web app configuration.
 const firebaseConfig = {
-    apiKey: "REEMPLAZAR_API_KEY",
-    authDomain: "REEMPLAZAR_PROJECT_ID.firebaseapp.com",
-    projectId: "REEMPLAZAR_PROJECT_ID",
-    storageBucket: "REEMPLAZAR_PROJECT_ID.appspot.com",
-    messagingSenderId: "REEMPLAZAR_SENDER_ID",
-    appId: "REEMPLAZAR_APP_ID"
+    apiKey: "AIzaSyBUjsMKpqRrO1mwybDhxZVhftXT_CpCQCw",
+    authDomain: "actas-entrega.firebaseapp.com",
+    projectId: "actas-entrega",
+    storageBucket: "actas-entrega.firebasestorage.app",
+    messagingSenderId: "976405270493",
+    appId: "1:976405270493:web:201a0a416ee895e1383034"
 };
 
 const app = initializeApp(firebaseConfig);
