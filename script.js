@@ -144,7 +144,7 @@ function agregarFilaSerial(serial) {
 }
 
 function editarFila(fila, acciones, esSerial = false) {
-    if (acciones.querySelector("input")) {
+    if (fila.querySelector("input")) {
         fila.querySelectorAll("input").forEach((entrada) => {
             entrada.parentElement.textContent = entrada.value.trim();
         });
