@@ -1,11 +1,15 @@
 import { leerActaRemota } from "../firebase-data.js";
-import { auth, authReady } from "../firebase-config.js";
+import { auth, authReady, cerrarSesion } from "../firebase-config.js";
 
 await authReady;
 if (!auth.currentUser) window.location.replace("../login.html");
 
 const parametros = new URLSearchParams(window.location.search);
 const idActa = parametros.get("id");
+
+document.getElementById("btn-cerrar-sesion").addEventListener("click", () => {
+    cerrarSesion().catch((error) => console.error(error));
+});
 const campos = [
     "cliente", "direccion", "fecha", "identificacion", "telefono", "correo", "nit",
     "razon-social", "direccion-facturacion", "telefono-facturacion", "correo-facturacion",
@@ -53,7 +57,7 @@ async function cargarReporte() {
     });
 
     document.getElementById("btn-editar-acta").addEventListener("click", () => {
-        window.location.href = `../index.html?id=${encodeURIComponent(acta.id)}`;
+        window.location.href = `../index.html?id=${encodeURIComponent(idActa)}`;
     });
     document.getElementById("btn-imprimir").addEventListener("click", () => window.print());
 }

@@ -3,7 +3,7 @@ import {
     guardarActaRemota,
     leerActaRemota
 } from "./firebase-data.js";
-import { auth, authReady } from "./firebase-config.js";
+import { auth, authReady, cerrarSesion } from "./firebase-config.js";
 
 await authReady;
 if (!auth.currentUser) window.location.replace("login.html");
@@ -17,6 +17,7 @@ const tablaTotalCantidades = document.getElementById("tabla-total-cantidades");
 const inputSerialCondensadora = document.getElementById("input-serial-condensadora");
 const inputSerialEvaporadora = document.getElementById("input-serial-evaporadora");
 const tbodySeriales = document.getElementById("tbody-seriales");
+const botonCerrarSesion = document.getElementById("btn-cerrar-sesion");
 
 const camposActa = [
     "fecha", "identificacion", "nombre", "direccion", "telefono", "correo",
@@ -26,6 +27,10 @@ const camposActa = [
 
 const parametros = new URLSearchParams(window.location.search);
 let actaEnEdicion = parametros.get("id");
+
+botonCerrarSesion.addEventListener("click", () => {
+    cerrarSesion().catch(mostrarError);
+});
 
 function guardarCambiosAutomaticamente() {
     if (actaEnEdicion) guardarActa(false).catch(mostrarError);

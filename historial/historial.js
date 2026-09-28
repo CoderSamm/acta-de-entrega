@@ -3,13 +3,20 @@ import {
 	guardarActaRemota,
 	leerHistorialRemoto
 } from "../firebase-data.js";
-import { auth, authReady } from "../firebase-config.js";
+import { auth, authReady, cerrarSesion } from "../firebase-config.js";
 
 await authReady;
 if (!auth.currentUser) window.location.replace("../login.html");
 
 const tabla = document.getElementById("tablaHistorial");
 const estado = document.getElementById("estado-historial");
+
+document.getElementById("btn-cerrar-sesion").addEventListener("click", () => {
+	 cerrarSesion().catch((error) => {
+		console.error(error);
+		estado.textContent = "No se pudo cerrar la sesión";
+	});
+});
 
 function textoSeguro(valor) {
 	return valor || "Sin datos";

@@ -17,7 +17,7 @@ async function referenciaUsuario() {
 export async function leerHistorialRemoto() {
     await referenciaUsuario();
     const resultado = await getDocs(collection(db, COLECCION_ACTAS));
-    return resultado.docs.map((registro) => registro.data())
+    return resultado.docs.map((registro) => ({ id: registro.id, ...registro.data() }))
         .sort((a, b) => new Date(b.actualizadoEn) - new Date(a.actualizadoEn));
 }
 
@@ -25,7 +25,7 @@ export async function leerActaRemota(id) {
     await referenciaUsuario();
     const registro = await getDoc(doc(db, COLECCION_ACTAS, id));
     if (!registro.exists()) return null;
-    return registro.data();
+    return { id: registro.id, ...registro.data() };
 }
 
 export async function guardarActaRemota(acta) {
